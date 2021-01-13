@@ -33,7 +33,7 @@ if [[ $CONTAINER_DEV_ID == "" ]]; then
     if [[ $CONTAINER_DEV_ID == "" ]]; then
         # Container doesn't exist
         echo "$CONTAINER_DEV does not exist, running:"
-        RUN_CMD="docker run -it -v $(pwd):/code --env-file .env.dev --name $CONTAINER_DEV $IMAGE_DEV"
+        RUN_CMD="docker run -dit -v $(pwd):/code -v /tmp/.X11-unix:/tmp/.X11-unix --env-file .env.dev --name $CONTAINER_DEV $IMAGE_DEV"
         echo "  $RUN_CMD"
         $RUN_CMD
         exit 0
