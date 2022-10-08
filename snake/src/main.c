@@ -1,14 +1,24 @@
 #include <stdint.h>
+#include <stdlib.h>
+#include <map>
 #include "snake.h"
 volatile int global = 42;
 volatile uint32_t controller_status = 0;
 
 volatile char *VIDEO_MEMORY = (volatile char *)(0x50000000 + 0xFE800);
 int main() {
+    // std::map<int, int> test;
+    // test[1] = 2;
+    Snake* p = new Snake;
+    delete p;
     int a = 4;
     int b = 12;
     int last_global = 42;
     int x_pos = 12;
+
+    // VIDEO_MEMORY[0] = 'X';
+    // void* p = malloc(16);
+    // if(p != 0) VIDEO_MEMORY[0] = 'Y';
 
     Snake snake;
     for(size_t i = 0; i < snake.size(); i++)

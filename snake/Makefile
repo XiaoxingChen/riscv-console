@@ -26,8 +26,8 @@ endif
 
 LDFILE   = riscv32-console.ld
 INCLUDE  += -I $(INC_DIR)
-CFLAGS   += -ffreestanding  -nostartfiles -nostdlib -nodefaultlibs -fno-exceptions
-LDFLAGS  += -lc
+CFLAGS   += -ffreestanding  -nostartfiles -fno-exceptions
+LDFLAGS  += -lc -lnosys -lstdc++ -lgcc
 LDFLAGS  += -Wl,--gc-sections -Wl,-T,$(LDFILE)
 
 TARGET_NAME = riscv-console-example

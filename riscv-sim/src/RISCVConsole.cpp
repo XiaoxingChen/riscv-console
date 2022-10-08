@@ -39,7 +39,7 @@ CRISCVConsole::CRISCVConsole(uint32_t timerus, uint32_t videoms, uint32_t cpufre
     DRefreshScreenBuffer.store(false);
     DVideoController = std::make_shared< CVideoController >();
 
-    DMemoryController = std::make_shared< CMemoryControllerDevice >(32);    
+    DMemoryController = std::make_shared< CMemoryControllerDevice >(32);
     DMainMemory = std::make_shared< CRAMMemoryDevice >(DMainMemorySize);
     DMemoryController->AttachDevice(DMainMemory,DMainMemoryBase);
     DFirmwareFlash = std::make_shared< CFlashMemoryDevice >(DFirmwareMemorySize);
@@ -47,8 +47,8 @@ CRISCVConsole::CRISCVConsole(uint32_t timerus, uint32_t videoms, uint32_t cpufre
     DCartridgeFlash = std::make_shared< CFlashMemoryDevice >(DCartridgeMemorySize);
     DMemoryController->AttachDevice(DCartridgeFlash,DCartridgeMemoryBase);
     DMemoryController->AttachDevice(DVideoController->VideoRAM(),DVideoMemoryBase);
-    
-    
+
+
 
     DCPUCache = std::make_shared<CRISCVBlockInstructionCache>();
     DCPU = std::make_shared< CRISCVCPU >(DMemoryController, DCPUCache);
@@ -185,6 +185,7 @@ void CRISCVConsole::LoadElfSourceFiles(CElfLoad &elffile, std::shared_ptr<CDataC
 
     // See if absolute path files exist
     for(auto FilePath : elffile.LineNumberData().DFilePaths){
+        std::cout << "FilePath: " << FilePath << std::endl;
         if(FoundFiles.find(FilePath) == FoundFiles.end()){
             CPath TempPath = CPath(FilePath).Containing();
             auto ContainingDir = std::make_shared<CDirectoryDataContainer>(TempPath);
@@ -213,7 +214,7 @@ void CRISCVConsole::LoadElfSourceFiles(CElfLoad &elffile, std::shared_ptr<CDataC
             }
             FileDirectories[TempPath.ToString()].push_back(FilePath);
         }
-        
+
         for(auto &FileDirectory : FileDirectories){
             std::shared_ptr<CDataContainer> BaseContainer = elfcontainer;
             std::vector<std::string> SearchFilenames;
@@ -224,7 +225,7 @@ void CRISCVConsole::LoadElfSourceFiles(CElfLoad &elffile, std::shared_ptr<CDataC
                 CPath TempPath(FilePath);
                 SearchFilenames.push_back(TempPath.Component(TempPath.ComponentCount()-1));
             }
-            
+
             while(BaseContainer){
                 CPath DirectoryPath(FileDirectory.first);
                 DownLevels = 0;
@@ -246,6 +247,7 @@ void CRISCVConsole::LoadElfSourceFiles(CElfLoad &elffile, std::shared_ptr<CDataC
                     FoundAll = true;
                     for(auto SearchFile : SearchFilenames){
                         if(FoundMappedFiles.find(SearchFile) == FoundMappedFiles.end()){
+                            std::cout << "cannot find: " << SearchFile << std::endl;
                             FoundAll = false;
                             break;
                         }
@@ -267,20 +269,26 @@ void CRISCVConsole::LoadElfSourceFiles(CElfLoad &elffile, std::shared_ptr<CDataC
                 UpLevelPath += "../";
             }
             if(!FoundAll){
+                for(auto & path: elffile.LineNumberData().DFilePaths)
+                {
+                    std::cout << "find path: " << path << std::endl;
+                }
+                std::cout << "still not find, return" << std::endl;
                 return;
             }
         }
     }
     filelines.clear();
     filelines.resize(elffile.LineNumberData().DFilePaths.size());
+    std::cout << "elffile.LineNumberData().DFilePaths.size(): " << elffile.LineNumberData().DFilePaths.size() << std::endl;
     size_t FileIndex = 0;
     for(auto FilePath : elffile.LineNumberData().DFilePaths){
         CLineDataSource LineDataSource(elfcontainer->DataSource(FoundFiles[FilePath]));
         std::string TempLine;
-        //printf("------------------------------\n%s:\n",FoundFiles[FilePath].c_str());
+        // printf("------------------------------\n%s:\n",FoundFiles[FilePath].c_str());
         while(LineDataSource.Read(TempLine)){
             filelines[FileIndex].push_back(TempLine);
-            //printf("%s\n",TempLine.c_str());
+            // printf("%s\n",TempLine.c_str());
         }
         FileIndex++;
     }
@@ -293,7 +301,10 @@ void CRISCVConsole::ConstructInstructionStrings(CElfLoad &elffile, std::shared_p
     labelindices.clear();
     std::vector< std::vector< std::string > > SourceFileLines;
     LoadElfSourceFiles(elffile,elfcontainer,SourceFileLines);
+
+    std::cout << "SourceFileLines.size(): " << SourceFileLines.size() << std::endl;
     std::vector< size_t > SourceFileDisplayedLines(SourceFileLines.size(), 0);
+
     size_t SourceFileIndex = SourceFileDisplayedLines.size();
     auto NextSourceLine = elffile.LineNumberData().DLineNumberEntries.begin();
     auto EndSourceLine = elffile.LineNumberData().DLineNumberEntries.end();
@@ -311,7 +322,7 @@ void CRISCVConsole::ConstructInstructionStrings(CElfLoad &elffile, std::shared_p
             auto NextSymbol = AddressKeys.begin();
             uint32_t CurrentAddress = Header.DVirtualAddress;
             uint32_t EndAddress = Header.DVirtualAddress + Header.DSize;
-            while(CurrentAddress < EndAddress){              
+            while(CurrentAddress < EndAddress){
                 while((NextSourceLine != EndSourceLine)&&(CurrentAddress == NextSourceLine->DAddress)){
                     if((NextSourceLine->DFileIndex != SourceFileIndex)&&(SourceFileIndex < SourceFileDisplayedLines.size())&&(SourceFileDisplayedLines[NextSourceLine->DFileIndex] < SourceFileLines[NextSourceLine->DFileIndex].size())){
                         // Assume files are continugous, so output remainder of file
@@ -354,7 +365,7 @@ void CRISCVConsole::ConstructInstructionStrings(CElfLoad &elffile, std::shared_p
                     //strings.push_back(Header.DSymbols.find(CurrentAddress)->second);
                     NextSymbol++;
                 }
-                
+
                 translations[CurrentAddress] = strings.size();
                 std::stringstream Stream;
                 Stream<<" "<<std::setfill('0') << std::setw(8) << std::hex << CurrentAddress << ": ";
@@ -371,7 +382,7 @@ void CRISCVConsole::ConstructInstructionStrings(CElfLoad &elffile, std::shared_p
                 else{
                     Stream<<"invalid";
                 }
-                
+
                 strings.push_back(Stream.str());
 
                 CurrentAddress += sizeof(uint32_t);

@@ -7,6 +7,7 @@ extern uint8_t _sdata[];
 extern uint8_t _esdata[];
 extern uint8_t _bss[];
 extern uint8_t _ebss[];
+// extern uint8_t _end[];
 
 // Adapted from https://stackoverflow.com/questions/58947716/how-to-interact-with-risc-v-csrs-by-using-gcc-c-code
 __attribute__((always_inline)) inline uint32_t csr_mstatus_read(void){
