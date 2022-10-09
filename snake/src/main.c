@@ -1,14 +1,13 @@
 #include <stdint.h>
 #include <stdlib.h>
-#include <map>
+#include <vector>
 #include "snake.h"
 volatile int global = 42;
 volatile uint32_t controller_status = 0;
 
 volatile char *VIDEO_MEMORY = (volatile char *)(0x50000000 + 0xFE800);
 int main() {
-    // std::map<int, int> test;
-    // test[1] = 2;
+    std::vector<int, int> test_vector;
     Snake* p = new Snake;
     delete p;
     int a = 4;
@@ -54,6 +53,9 @@ int main() {
             VIDEO_MEMORY[snake.newHeadCoord()] = '#';
             VIDEO_MEMORY[snake.foodCoord()] = '*';
             last_global = global;
+
+            test_vector.push_back(0);
+            VIDEO_MEMORY[0] = '0' + test_vector.size() % 10;
         }
     }
     return 0;
