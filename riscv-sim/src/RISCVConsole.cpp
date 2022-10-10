@@ -185,6 +185,7 @@ void CRISCVConsole::LoadElfSourceFiles(CElfLoad &elffile, std::shared_ptr<CDataC
 
     // See if absolute path files exist
     for(auto FilePath : elffile.LineNumberData().DFilePaths){
+        std::cout << "FilePath: " << FilePath << std::endl;
         if(FoundFiles.find(FilePath) == FoundFiles.end()){
             CPath TempPath = CPath(FilePath).Containing();
             auto ContainingDir = std::make_shared<CDirectoryDataContainer>(TempPath);
@@ -246,6 +247,7 @@ void CRISCVConsole::LoadElfSourceFiles(CElfLoad &elffile, std::shared_ptr<CDataC
                     FoundAll = true;
                     for(auto SearchFile : SearchFilenames){
                         if(FoundMappedFiles.find(SearchFile) == FoundMappedFiles.end()){
+                            std::cout << "cannot find: " << SearchFile << std::endl;
                             FoundAll = false;
                             break;
                         }
@@ -267,6 +269,11 @@ void CRISCVConsole::LoadElfSourceFiles(CElfLoad &elffile, std::shared_ptr<CDataC
                 UpLevelPath += "../";
             }
             if(!FoundAll){
+                for(auto & path: elffile.LineNumberData().DFilePaths)
+                {
+                    std::cout << "find path: " << path << std::endl;
+                }
+                std::cout << "still not find, return" << std::endl;
                 return;
             }
         }

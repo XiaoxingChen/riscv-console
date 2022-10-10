@@ -1,4 +1,10 @@
 #include <stdint.h>
+#include <array>
+#include <vector>
+#include <map>
+#include <stdexcept>
+
+#include <stdlib.h>
 
 volatile int global = 42;
 volatile uint32_t controller_status = 0;
@@ -23,6 +29,13 @@ int main() {
     VIDEO_MEMORY[10] = 'd';
     VIDEO_MEMORY[11] = '!';
     VIDEO_MEMORY[12] = 'X';
+
+    void * test_p = malloc(2);
+    free(test_p);
+
+    std::array<int, 100> test_array;
+    std::vector<int> test_vec;
+    std::map<int, int> test_map;
 
 
     while (1) {
@@ -53,6 +66,14 @@ int main() {
                 VIDEO_MEMORY[x_pos] = 'X';
             }
             last_global = global;
+            test_array[global % 100] = global;
+            // test_vec.push_back(int(global));
+            // VIDEO_MEMORY[0] = '0' + (test_vec.size() % 10);
+            VIDEO_MEMORY[0] = int(5.6 * global) % 10;
+            test_map[int(global)] = 0;
+            // VIDEO_MEMORY[0] = '0' + (test_map.size() % 10);
+            
+
         }
     }
     return 0;
