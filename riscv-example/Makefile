@@ -26,7 +26,7 @@ endif
 
 LDFILE   = riscv32-console.ld
 INCLUDE  += -I $(INC_DIR)
-CFLAGS   += -ffreestanding  -nostartfiles -fno-exceptions
+CFLAGS   += -ffreestanding  -nostartfiles -fno-exceptions -fno-unwind-tables -fno-rtti
 LDFLAGS  += -lc -lnosys -lstdc++ -lgcc
 LDFLAGS  += -Wl,--gc-sections -Wl,-T,$(LDFILE)
 
