@@ -13,7 +13,7 @@ SRC_DIR = ./src
 OBJ_DIR = ./obj
 BIN_DIR = ./bin
 
-#DEBUG_MODE=TRUE
+DEBUG_MODE=TRUE
 
 PKGS = gtk+-3.0 
 
