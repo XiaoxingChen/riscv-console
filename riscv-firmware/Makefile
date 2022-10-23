@@ -27,7 +27,7 @@ endif
 LDFILE   = riscv32-console.ld
 INCLUDE  += -I $(INC_DIR)
 CFLAGS   += -ffreestanding  -nostartfiles -nostdlib -nodefaultlibs
-LDFLAGS  +=
+LDFLAGS  += -lc -lnosys
 LDFLAGS  += -Wl,--gc-sections -Wl,-T,$(LDFILE)
 
 TARGET_NAME = riscv-console-firmware
