@@ -5,6 +5,7 @@ volatile uint32_t controller_status = 0;
 volatile uint32_t *CARTRIDGE = (volatile uint32_t *)(0x4000001C);
 volatile char *VIDEO_MEMORY = (volatile char *)(0x50000000 + 0xFE800);
 typedef void (*FunPtr)(void);
+volatile int vip_seq = 1;
 int main() {
     while(1){
         if((*CARTRIDGE) & 0x1){

@@ -31,6 +31,7 @@ __attribute__((always_inline)) inline void csr_disable_interrupts(void){
     asm volatile ("csrci mstatus, 0x8");
 }
 
+#define INTERRUPT_PENDING (*((volatile uint32_t *)0x40000004))
 #define MTIME_LOW       (*((volatile uint32_t *)0x40000008))
 #define MTIME_HIGH      (*((volatile uint32_t *)0x4000000C))
 #define MTIMECMP_LOW    (*((volatile uint32_t *)0x40000010))
@@ -59,6 +60,8 @@ void init(void){
 
 extern volatile int global;
 extern volatile uint32_t controller_status;
+extern volatile uint32_t interrupt_pending;
+extern volatile int vip_seq;
 
 void c_interrupt_handler(void){
     uint64_t NewCompare = (((uint64_t)MTIMECMP_HIGH)<<32) | MTIMECMP_LOW;
@@ -67,5 +70,11 @@ void c_interrupt_handler(void){
     MTIMECMP_LOW = NewCompare;
     global++;
     controller_status = CONTROLLER;
+    interrupt_pending = INTERRUPT_PENDING;
+    if((INTERRUPT_PENDING & 0x2) > 0)
+    {
+        vip_seq++;
+        INTERRUPT_PENDING &= 0x2;
+    }
 }
 

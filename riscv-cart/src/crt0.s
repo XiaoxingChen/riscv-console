@@ -16,11 +16,14 @@ _start:
     
 
 .section .text, "ax"
-.global getTicks, getStatus
+.global getTicks, getStatus, getVideoInterruptSeq
 getTicks:
     li a5, 0
     ecall
 getStatus:
     li a5, 1
+    ecall
+getVideoInterruptSeq:
+    li a5, 2
     ecall
 .end
