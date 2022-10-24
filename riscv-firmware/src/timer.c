@@ -23,7 +23,7 @@ extern volatile char *VIDEO_MEMORY;
 int handle_time_interrupt(int mcause) {
     // determining whether the interrupt is caused by timer
     // fixme: whether to use == or seventh bits
-    if (mcause & 0x7 != 7) {
+    if (mcause != 0x80000007) {
         return 0;
     }
     if(node == NULL){
