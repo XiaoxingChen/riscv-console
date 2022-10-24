@@ -35,7 +35,7 @@ int handle_time_interrupt(int mcause) {
 void handle_timer() {
     SLTNode* curr = node->next;
     while(curr != NULL){
-        ((ptr)(curr->data))(0);
+        (curr->data)(0);
         curr = curr->next;
     }
 }

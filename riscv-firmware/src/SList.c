@@ -38,6 +38,7 @@ void deleteNode(SLTNode* pplist,ptr t){
     }
     prev->next = curr->next;
     curr->next = NULL;
+    free(curr);
 }
 
 SLTNode* initList(){
