@@ -18,13 +18,19 @@ void handle_timer();
 
 SLTNode* node;
 extern volatile char *VIDEO_MEMORY;
-
+#define MTIME_LOW       (*((volatile uint32_t *)0x40000008))
+#define MTIME_HIGH      (*((volatile uint32_t *)0x4000000C))
+#define MTIMECMP_LOW    (*((volatile uint32_t *)0x40000010))
+#define MTIMECMP_HIGH   (*((volatile uint32_t *)0x40000014))
 
 int handle_time_interrupt(int mcause) {
     // determining whether the interrupt is caused by timer
     // fixme: whether to use == or seventh bits
     if (mcause & 0x7 != 7) {
         return 0;
+    }
+    if(node == NULL){
+        node = initList();
     }
     // dispatch customized handlers
     handle_timer();

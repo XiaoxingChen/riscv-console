@@ -1,5 +1,5 @@
 #include <stdint.h>
-
+#include "include/timer.h"
 extern uint8_t _erodata[];
 extern uint8_t _data[];
 extern uint8_t _edata[];
@@ -31,10 +31,7 @@ __attribute__((always_inline)) inline void csr_disable_interrupts(void){
     asm volatile ("csrci mstatus, 0x8");
 }
 
-#define MTIME_LOW       (*((volatile uint32_t *)0x40000008))
-#define MTIME_HIGH      (*((volatile uint32_t *)0x4000000C))
-#define MTIMECMP_LOW    (*((volatile uint32_t *)0x40000010))
-#define MTIMECMP_HIGH   (*((volatile uint32_t *)0x40000014))
+
 #define CONTROLLER      (*((volatile uint32_t *)0x40000018))
 
 void init(void){
@@ -62,10 +59,7 @@ extern volatile uint32_t controller_status;
 extern volatile char *VIDEO_MEMORY;
 
 void c_interrupt_handler(uint32_t mcause){
-    uint64_t NewCompare = (((uint64_t)MTIMECMP_HIGH)<<32) | MTIMECMP_LOW;
-    NewCompare += 100;
-    MTIMECMP_HIGH = NewCompare>>32;
-    MTIMECMP_LOW = NewCompare;
+    handle_time_interrupt(mcause);
     global++;
     controller_status = CONTROLLER;
 }
