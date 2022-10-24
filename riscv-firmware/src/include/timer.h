@@ -7,10 +7,7 @@
 /**
  * define the memory location of  mtime and mtimecmp instructions
  */
-#define MTIME_LOW       (*((volatile uint32_t *)0x40000008))
-#define MTIME_HIGH      (*((volatile uint32_t *)0x4000000C))
-#define MTIMECMP_LOW    (*((volatile uint32_t *)0x40000010))
-#define MTIMECMP_HIGH   (*((volatile uint32_t *)0x40000014))
+
 /**
  * the function processing customized timer handler
  * @param mcause

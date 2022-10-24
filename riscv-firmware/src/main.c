@@ -11,7 +11,6 @@ int main() {
     free(p);
     while(1){
         if((*CARTRIDGE) & 0x1){
-            VIDEO_MEMORY[200]='1';
             ((FunPtr)((*CARTRIDGE) & 0xFFFFFFFC))();
         }
     }

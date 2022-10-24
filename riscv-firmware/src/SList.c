@@ -11,7 +11,6 @@ void insertNode(SLTNode *pplist, ptr t) {
     newNode->data = t;
     newNode->next = NULL;
 
-    VIDEO_MEMORY[6] = 'f';
     SLTNode *cur = pplist;
     while (cur->next != NULL) {
         cur = cur->next;
@@ -36,17 +35,12 @@ void deleteNode(SLTNode *pplist, ptr t) {
     free(curr);
 }
 
-SLTNode *initList() {
-    SLTNode *newNode = (SLTNode *) malloc(sizeof(SLTNode));
+SLTNode* initList() {
+    SLTNode* newNode = (SLTNode *) malloc(sizeof(SLTNode));
     newNode->next = NULL;
-//    SLTNode* newNode2 = (SLTNode*)malloc(sizeof(SLTNode));
-//    newNode2->data = hand;
-//    newNode->next = newNode2;
     return newNode;
 }
 
-uint32_t hand(uint32_t code) {
-    VIDEO_MEMORY[200] = 's';
-}
+
 
 

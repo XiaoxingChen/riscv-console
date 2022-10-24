@@ -26,5 +26,4 @@ void deleteNode(SLTNode* pplist,ptr t);
  */
 SLTNode* initList();
 
-uint32_t hand(uint32_t code);
 
