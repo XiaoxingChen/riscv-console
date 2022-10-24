@@ -16,14 +16,20 @@ uint32_t myHandler(uint32_t code);
 
 uint32_t myHandler2(uint32_t code);
 
-int counter1 = 1;
-
+volatile int invokingFlag = 0;
 volatile char *VIDEO_MEMORY = (volatile char *) (0x50000000 + 0xFE800);
-
+volatile uint32_t counter1=0;
 int main() {
-    registerHandler((uint32_t) myHandler);
+    if(!invokingFlag){
+        VIDEO_MEMORY[1050+counter1]='B';
+        counter1++;
+//        registerHandler((uint32_t) myHandler);
+//
+//        registerHandler((uint32_t) myHandler2);
+        //invokingFlag=1;
+        VIDEO_MEMORY[1049]='A';
+    }
 
-    registerHandler((uint32_t) myHandler2);
 
     return 0;
 }

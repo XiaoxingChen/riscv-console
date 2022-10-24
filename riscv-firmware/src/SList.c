@@ -1,8 +1,8 @@
 //
 // Created by syf on 2022/10/23.
 //
-#include "include/SList.h"
 #include <stdlib.h>
+#include "include/SList.h"
 
 extern volatile char *VIDEO_MEMORY;
 
