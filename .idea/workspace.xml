@@ -15,10 +15,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3358d6f8-2e74-4999-b089-28749804e544" name="Changes" comment="timer_new: stash">
+    <list default="true" id="3358d6f8-2e74-4999-b089-28749804e544" name="Changes" comment="timer_new: remove useless code in cart's main()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riscv-firmware/src/SList.c" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-firmware/src/SList.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riscv-firmware/src/timer.c" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-firmware/src/timer.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/riscv-cart/src/crt0.s" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-cart/src/crt0.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/riscv-cart/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-cart/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/riscv-firmware/src/startup.c" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-firmware/src/startup.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +84,21 @@
       <option name="project" value="LOCAL" />
       <updated>1666579962067</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="timer_new: fix list bug">
+      <created>1666584514179</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1666584514179</updated>
+    </task>
+    <task id="LOCAL-00004" summary="timer_new: remove useless code in cart's main()">
+      <created>1666584806305</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1666584806305</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +148,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="local change of timer" />
     <MESSAGE value="timer_new: print 1 to [200] position" />
-    <option name="LAST_COMMIT_MESSAGE" value="timer_new: print 1 to [200] position" />
+    <MESSAGE value="timer_new: fix list bug" />
+    <MESSAGE value="timer_new: remove useless code in cart's main()" />
+    <option name="LAST_COMMIT_MESSAGE" value="timer_new: remove useless code in cart's main()" />
   </component>
 </project>

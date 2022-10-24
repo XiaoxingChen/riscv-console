@@ -16,11 +16,14 @@ _start:
     
 
 .section .text, "ax"
-.global getTicks, getStatus
+.global getTicks, getStatus, registerHandler
 getTicks:
     li a5, 0
     ecall
 getStatus:
     li a5, 1
+    ecall
+registerHandler:
+    li a5, 5
     ecall
 .end

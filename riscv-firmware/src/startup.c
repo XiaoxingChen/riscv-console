@@ -59,6 +59,7 @@ void init(void){
 
 extern volatile int global;
 extern volatile uint32_t controller_status;
+extern volatile char *VIDEO_MEMORY;
 
 void c_interrupt_handler(uint32_t mcause){
     uint64_t NewCompare = (((uint64_t)MTIMECMP_HIGH)<<32) | MTIMECMP_LOW;
@@ -75,6 +76,9 @@ uint32_t c_system_call(uint32_t a0, uint32_t a1, uint32_t a2, uint32_t a3, uint3
     }
     else if(call == 1){
         return CONTROLLER;
+    }else if(call == 5){
+        VIDEO_MEMORY[99]='5';
+        return 5;
     }
     return -1;
 }
