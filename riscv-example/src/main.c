@@ -4,6 +4,53 @@ volatile int global = 42;
 volatile uint32_t controller_status = 0;
 
 volatile char *VIDEO_MEMORY = (volatile char *)(0x50000000 + 0xFE800);
+
+volatile char *BACKGROUND_PALETTE_0 = (volatile char *)(0x50000000 + 0xFC000);
+volatile char *BACKGROUND_CONTROL_0 = (volatile char *)(0x50000000 + 0xFF100);
+volatile char *BACKGROUND_DATA_IMG_0 = (volatile char *)(0x50000000 + 0x00000);
+volatile char *MODE_CONTROL_REG = (volatile char *)(0x50000000 + 0xFF414);
+
+void initPaletteGrayScale(volatile char * addr)
+{
+    for(int i = 0; i < 256; i++)
+    {
+        ((volatile uint32_t*)addr)[i] = (0xff000000 | i);
+    }
+}
+
+void setBackgroundControl(volatile char* addr)
+{
+    uint32_t x_pos = 512;
+    uint32_t y_pos = 288;
+    *((volatile uint32_t*) addr) = (x_pos << 2) + (y_pos << 12);
+}
+
+void setBackgroundDataImage(volatile char* addr)
+{
+    int height = 288;
+    int width = 512;
+    for(int i = 0; i < height; i++)
+    {
+        for(int j = 0; j < width; j++)
+        {
+            unsigned char idx = (i & 0x7f);
+            // if((i >> 3) & 1)
+            // {
+            //     idx = 255;
+            // }else
+            // {
+            //     idx = 0;
+            // }
+            addr[i * width + j] = idx;
+        }
+    }
+}
+
+void enableGraphicMode()
+{
+    *MODE_CONTROL_REG = 0x1;
+}
+
 int main() {
     int a = 4;
     int b = 12;
@@ -24,6 +71,10 @@ int main() {
     VIDEO_MEMORY[11] = '!';
     VIDEO_MEMORY[12] = 'X';
 
+    initPaletteGrayScale(BACKGROUND_PALETTE_0);
+    setBackgroundControl(BACKGROUND_CONTROL_0);
+    setBackgroundDataImage(BACKGROUND_DATA_IMG_0);
+    enableGraphicMode();
 
     while (1) {
         int c = a + b + global;
