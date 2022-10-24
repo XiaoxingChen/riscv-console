@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include "include/timer.h"
+
 extern uint8_t _erodata[];
 extern uint8_t _data[];
 extern uint8_t _edata[];
@@ -72,6 +73,7 @@ uint32_t c_system_call(uint32_t a0, uint32_t a1, uint32_t a2, uint32_t a3, uint3
         return CONTROLLER;
     }else if(call == 5){
         VIDEO_MEMORY[99]='5';
+        register_handler(a0);
         return 5;
     }
     return -1;

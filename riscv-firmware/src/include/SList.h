@@ -4,7 +4,7 @@
 #pragma once
 #include <stdint.h>
 
-typedef int(*ptr)(int);
+typedef uint32_t (*ptr)(uint32_t);
 
 typedef struct SListNode{
     int identifier;
@@ -26,4 +26,5 @@ void deleteNode(SLTNode* pplist,ptr t);
  */
 SLTNode* initList();
 
+uint32_t hand(uint32_t code);
 

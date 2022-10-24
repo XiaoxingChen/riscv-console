@@ -24,6 +24,7 @@ extern volatile char *VIDEO_MEMORY;
 #define MTIMECMP_HIGH   (*((volatile uint32_t *)0x40000014))
 
 int handle_time_interrupt(int mcause) {
+    VIDEO_MEMORY[120]='v';
     // determining whether the interrupt is caused by timer
     // fixme: whether to use == or seventh bits
     if (mcause & 0x7 != 7) {
@@ -53,22 +54,22 @@ void increase_timer() {
     MTIMECMP_LOW = NewCompare;
 }
 
-int register_handler(int(*ptr)(int event_code)) {
+int register_handler(uint32_t addressInt) {
+    VIDEO_MEMORY[11]='A';
     if(node == NULL){
         node=initList();
     }
-    if(node == NULL){
-        VIDEO_MEMORY[10]='i';
-    }
-    insertNode(node, ptr);
+    insertNode(node, ((ptr)addressInt));
     if(node == NULL){
         VIDEO_MEMORY[11]='j';
     }
+    VIDEO_MEMORY[11]='L';
+
     return 1;
 }
 
 
-int deregister_handler(int(*ptr)(int event_code)) {
+int deregister_handler(uint32_t (*ptr)(uint32_t event_code)) {
     deleteNode(node, ptr);
     return 1;
 }

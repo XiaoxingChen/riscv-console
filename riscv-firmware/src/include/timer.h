@@ -21,13 +21,13 @@ int handle_time_interrupt(int mcause);
  * register a customized handler will be invoked when timer interrupts occur.
  * @return the identifier of the handler,used to mark a unique handler.
  */
-int register_handler(int(*ptr)(int event_code));
+int register_handler(uint32_t addressInt);
 /**
  * cancle a handler using the identifier given at the register step
  * @param handler_identifier
  * @return 1-successful, 0-failed
  */
-int deregister_handler(int(*ptr)(int event_code));
+int deregister_handler(uint32_t(*ptr)(uint32_t event_code));
 
 
 
