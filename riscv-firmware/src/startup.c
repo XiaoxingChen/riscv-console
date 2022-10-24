@@ -76,6 +76,10 @@ uint32_t c_system_call(uint32_t a0, uint32_t a1, uint32_t a2, uint32_t a3, uint3
     else if(call == 1){
         return CONTROLLER;
     }
+    else if(call == 2)
+    {
+        return a0 + 1;
+    }
     return -1;
 }
 

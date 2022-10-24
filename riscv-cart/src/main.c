@@ -5,6 +5,7 @@ volatile uint32_t controller_status = 0;
 
 uint32_t getTicks(void);
 uint32_t getStatus(void);
+uint32_t testCall(uint32_t);
 
 volatile char *VIDEO_MEMORY = (volatile char *)(0x50000000 + 0xFE800);
 int main() {
@@ -31,6 +32,7 @@ int main() {
     while (1) {
         global = getTicks();
         if(global != last_global){
+            VIDEO_MEMORY[12] = testCall('a');
             controller_status = getStatus();
             if(controller_status){
                 VIDEO_MEMORY[x_pos] = ' ';
