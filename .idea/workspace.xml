@@ -15,10 +15,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3358d6f8-2e74-4999-b089-28749804e544" name="Changes" comment="local change of timer">
-      <change beforePath="$PROJECT_DIR$/.idea/riscv-console-cxx.iml" beforeDir="false" />
+    <list default="true" id="3358d6f8-2e74-4999-b089-28749804e544" name="Changes" comment="timer_new: print 1 to [200] position">
+      <change afterPath="$PROJECT_DIR$/riscv-firmware/src/SList.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/riscv-firmware/src/include/SList.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/riscv-firmware/src/include/timer.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/riscv-firmware/src/timer.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riscv-firmware/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-firmware/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/riscv-firmware/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-firmware/Makefile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +32,11 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="chenxx/enable_malloc_free" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -71,7 +79,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666564213344</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="timer_new: print 1 to [200] position">
+      <created>1666579962067</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666579962067</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,6 +135,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="local change of timer" />
-    <option name="LAST_COMMIT_MESSAGE" value="local change of timer" />
+    <MESSAGE value="timer_new: print 1 to [200] position" />
+    <option name="LAST_COMMIT_MESSAGE" value="timer_new: print 1 to [200] position" />
   </component>
 </project>
