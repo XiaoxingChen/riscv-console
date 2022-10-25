@@ -10,8 +10,7 @@ volatile uint32_t cartridgeFlag=0;
 volatile uint32_t  counter3= 0;
 int main() {
     while(1){
-        if(((*CARTRIDGE) & 0x1)){
-            VIDEO_MEMORY[counter3+1000]='a';
+        if(((*CARTRIDGE) & 0x1) && cartridgeFlag==0){
             counter3++;
             cartridgeFlag =1;
             ((FunPtr)((*CARTRIDGE) & 0xFFFFFFFC))();

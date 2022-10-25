@@ -67,7 +67,7 @@ extern volatile char *VIDEO_MEMORY;
 void increase_timer() {
     uint64_t
     NewCompare = (((uint64_t)MTIMECMP_HIGH) << 32) | MTIMECMP_LOW;
-    NewCompare += 10000;
+    NewCompare += 1000;
     MTIMECMP_LOW = NewCompare;
     MTIMECMP_HIGH = NewCompare >> 32;
 
@@ -77,9 +77,9 @@ void c_interrupt_handler(uint32_t mcause) {
     int flag = handle_time_interrupt(mcause);
     global++;
     controller_status = CONTROLLER;
-//    if(flag){
-//        increase_timer();
-//    }
+    if(flag){
+        increase_timer();
+    }
     increase_timer();
 }
 
@@ -91,7 +91,6 @@ uint32_t c_system_call(uint32_t a0, uint32_t a1, uint32_t a2, uint32_t a3, uint3
     } else if (call == 1) {
         return CONTROLLER;
     } else if (call == 5) {
-        VIDEO_MEMORY[aaa+800]=aaa;
         aaa++;
         register_handler(a0);
         return 5;

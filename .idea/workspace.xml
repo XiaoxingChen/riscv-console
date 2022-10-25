@@ -15,10 +15,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3358d6f8-2e74-4999-b089-28749804e544" name="Changes" comment="timer_new: reachable adjust">
+    <list default="true" id="3358d6f8-2e74-4999-b089-28749804e544" name="Changes" comment="timer_new: cannot revoke to cart">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/riscv-cart/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-cart/src/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/riscv-firmware/src/SList.c" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-firmware/src/SList.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/riscv-firmware/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-firmware/src/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/riscv-firmware/src/startup.c" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-firmware/src/startup.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/riscv-firmware/src/timer.c" beforeDir="false" afterPath="$PROJECT_DIR$/riscv-firmware/src/timer.c" afterDir="false" />
@@ -73,7 +72,7 @@
       <workItem from="1666565382136" duration="27000" />
       <workItem from="1666565417556" duration="1000" />
       <workItem from="1666590415179" duration="4563000" />
-      <workItem from="1666627620523" duration="8135000" />
+      <workItem from="1666627620523" duration="12045000" />
     </task>
     <task id="LOCAL-00001" summary="local change of timer">
       <created>1666564213344</created>
@@ -138,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666594443580</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="timer_new: cannot revoke to cart">
+      <created>1666647011871</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1666647011871</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -194,6 +200,7 @@
     <MESSAGE value="timer_new: interrupt done" />
     <MESSAGE value="timer_new: reachable" />
     <MESSAGE value="timer_new: reachable adjust" />
-    <option name="LAST_COMMIT_MESSAGE" value="timer_new: reachable adjust" />
+    <MESSAGE value="timer_new: cannot revoke to cart" />
+    <option name="LAST_COMMIT_MESSAGE" value="timer_new: cannot revoke to cart" />
   </component>
 </project>
