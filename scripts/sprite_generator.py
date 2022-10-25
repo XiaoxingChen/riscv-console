@@ -6,7 +6,7 @@ import numpy as np
 script_folder = os.path.abspath(os.path.dirname(__file__))
 
 def colorMap(im, color_idx):
-    ret = np.ndarray(im.shape[:2])
+    ret = np.ndarray(im.shape[:2], dtype=np.uint8)
     for i in range(im.shape[0]):
         for j in range(im.shape[1]):
             ret[i,j] = color_idx[tuple(im[i,j])]
@@ -36,9 +36,32 @@ def generateBird():
         img_full = np.zeros([64, 64], dtype=np.uint8)
         img_full[:img_tmp.shape[0], :img_tmp.shape[1]] = img_tmp
         idx_imgs.append(img_full)
-    # print(repr(idx_imgs[0].ravel()))
+    print(repr(idx_imgs[2].ravel()))
 
-    print(palette)
+    # print(palette)
+
+def generateBackground():
+    im_raw = cv2.imread(script_folder + '/../docs/img/background.png', cv2.IMREAD_UNCHANGED)
+    print(im_raw.shape)
+    color_set = set()
+    for i in range(im_raw.shape[0]):
+        for j in range(im_raw.shape[1]):
+            color_set.add(tuple(im_raw[i,j]))
+    palette = list(color_set)
+    # palette.insert(0,(0,0,0,0))
+
+    bg_width = 512
+    bg_height = 288
+
+    color_idx = {}
+    for i, c in enumerate(palette):
+        color_idx[c] = int(i)
+
+    h_offset = 200
+    img_full = colorMap(im_raw[h_offset:h_offset+bg_height, 0:bg_width,:], color_idx)
+    # print(repr(img_full.ravel()))
+    # print(len(palette))
+    # print(palette)
 
     
     
@@ -47,3 +70,4 @@ def generateBird():
 if __name__ == "__main__":
     np.set_printoptions(linewidth=100, threshold=np.inf)
     generateBird()
+    # generateBackground()
