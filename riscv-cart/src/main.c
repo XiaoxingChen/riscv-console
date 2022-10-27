@@ -13,11 +13,21 @@ extern uint8_t bird_img_1[64*64];
 extern uint8_t bird_img_2[64*64];
 
 volatile char *VIDEO_MEMORY = (volatile char *)(0x50000000 + 0xFE800);
+volatile char *MODE_CONTROL_REG = (volatile char *)(0x50000000 + 0xFF414);
+
+uint32_t hookFunction(uint32_t func_id);
+
+FuncWriteTargetMem writeTargetMem;
+FuncWriteTarget writeTarget;
+
 int main() {
     int a = 4;
     int b = 12;
     int last_global = 42;
     int x_pos = 12;
+
+    writeTargetMem = (FuncWriteTargetMem)hookFunction(1);
+    writeTarget = (FuncWriteTarget)hookFunction(2);
 
     VIDEO_MEMORY[0] = 'H';
     VIDEO_MEMORY[1] = 'e';
@@ -69,12 +79,12 @@ int main() {
                         x_pos++;
                     }
                 }
-                // for(int i = 0; i < 3; i++)
-                // {
-                //     setLargeSpriteControl(i, 64, 64, sprite_y, sprite_x, i == global % 3);
-                // }
-                // setLargeSpriteControl(0, 64, 64, sprite_y, sprite_x, 1);
+                // setLargeSpriteControl(0, 64, 64, sprite_x, sprite_y, 1);
                 VIDEO_MEMORY[x_pos] = 'X';
+            }
+            for(int i = 0; i < 3; i++)
+            {
+                setLargeSpriteControl(i, 64, 64, sprite_x, sprite_y, i == global % 3);
             }
             last_global = global;
         }

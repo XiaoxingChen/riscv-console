@@ -1,8 +1,11 @@
 #include <stdint.h>
 #include <string.h>
+#include "video_api.h"
 
-uint32_t writeTargetMem(uint32_t handle, uint32_t src_addr, uint32_t len);
-uint32_t writeTarget(uint32_t handle, uint32_t value);
+// uint32_t writeTargetMem(uint32_t handle, uint32_t src_addr, uint32_t len);
+// uint32_t writeTarget(uint32_t handle, uint32_t value);
+extern FuncWriteTargetMem writeTargetMem;
+extern FuncWriteTarget writeTarget;
 
 void setLargeSpriteControl(uint32_t idx, uint32_t h, uint32_t w, uint32_t x, uint16_t y, uint32_t palette)
 {

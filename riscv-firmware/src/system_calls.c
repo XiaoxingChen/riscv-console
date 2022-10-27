@@ -29,3 +29,15 @@ uint32_t writeTarget(uint32_t mem_handle, uint32_t value)
     *addr = value;
     return 0;
 }
+
+uint32_t hookFunctionPointer(uint32_t fun_id)
+{
+    if(1 == fun_id)
+    {
+        return (uint32_t)&writeTargetMem;
+    }else if(2 == fun_id)
+    {
+        return (uint32_t)&writeTarget;
+    }
+    return 0;
+}

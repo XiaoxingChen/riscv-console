@@ -69,8 +69,7 @@ void c_interrupt_handler(uint32_t mcause){
     controller_status = CONTROLLER;
 }
 
-uint32_t writeTarget(uint32_t mem_handle, uint32_t value);
-uint32_t writeTargetMem(uint32_t mem_handle, uint32_t source_addr, uint32_t mem_len);
+uint32_t hookFunctionPointer(uint32_t fun_id);
 
 uint32_t c_system_call(uint32_t a0, uint32_t a1, uint32_t a2, uint32_t a3, uint32_t a4, uint32_t call){
     if(call == 0){
@@ -78,10 +77,15 @@ uint32_t c_system_call(uint32_t a0, uint32_t a1, uint32_t a2, uint32_t a3, uint3
     }
     else if(call == 1){
         return CONTROLLER;
-    }else if(call == 6){
-        return writeTargetMem(a0, a1, a2);
-    }else if(call == 7){
-        return writeTarget(a0, a1);
+    }
+    // else if(call == 6){
+    //     return writeTargetMem(a0, a1, a2);
+    // }else if(call == 7){
+    //     return writeTarget(a0, a1);
+    // }
+    else if(call == 8)
+    {
+        return hookFunctionPointer(a0);
     }
     return -1;
 }

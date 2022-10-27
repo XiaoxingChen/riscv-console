@@ -16,17 +16,20 @@ _start:
     
 
 .section .text, "ax"
-.global getTicks, getStatus, writeTargetMem, writeTarget
+.global getTicks, getStatus, hookFunction
 getTicks:
     li a5, 0
     ecall
 getStatus:
     li a5, 1
     ecall
-writeTargetMem:
-    li a5, 6
-    ecall
-writeTarget:
-    li a5, 7
+; writeTargetMem:
+;     li a5, 6
+;     ecall
+; writeTarget:
+;     li a5, 7
+;     ecall
+hookFunction:
+    li a5, 8
     ecall
 .end
