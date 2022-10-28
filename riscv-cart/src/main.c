@@ -26,24 +26,44 @@ int main() {
     int a = 4;
     int b = 12;
     int last_global = 42;
-    int x_pos = 12;
+    int x_pos = 18;
 
     writeTargetMem = (FuncWriteTargetMem)hookFunction(1);
     writeTarget = (FuncWriteTarget)hookFunction(2);
 
-    VIDEO_MEMORY[0] = 'H';
-    VIDEO_MEMORY[1] = 'e';
-    VIDEO_MEMORY[2] = 'l';
-    VIDEO_MEMORY[3] = 'l';
+    VIDEO_MEMORY[0] = 'V';
+    VIDEO_MEMORY[1] = 'i';
+    VIDEO_MEMORY[2] = 'd';
+    VIDEO_MEMORY[3] = 'e';
     VIDEO_MEMORY[4] = 'o';
     VIDEO_MEMORY[5] = ' ';
-    VIDEO_MEMORY[6] = 'W';
-    VIDEO_MEMORY[7] = 'o';
-    VIDEO_MEMORY[8] = 'r';
-    VIDEO_MEMORY[9] = 'l';
-    VIDEO_MEMORY[10] = 'd';
-    VIDEO_MEMORY[11] = '!';
-    VIDEO_MEMORY[12] = 'X';
+    VIDEO_MEMORY[6] = 'i';
+    VIDEO_MEMORY[7] = 'n';
+    VIDEO_MEMORY[8] = 't';
+    VIDEO_MEMORY[9] = 'e';
+    VIDEO_MEMORY[10] = 'r';
+    VIDEO_MEMORY[11] = 'r';
+    VIDEO_MEMORY[12] = 'u';
+    VIDEO_MEMORY[13] = 'p';
+    VIDEO_MEMORY[14] = 't';
+    VIDEO_MEMORY[15] = ':';
+    VIDEO_MEMORY[16] = ' ';
+
+    VIDEO_MEMORY[0 + 0x40] = 'C';
+    VIDEO_MEMORY[1 + 0x40] = 'M';
+    VIDEO_MEMORY[2 + 0x40] = 'D';
+    VIDEO_MEMORY[3 + 0x40] = ' ';
+    VIDEO_MEMORY[4 + 0x40] = 'i';
+    VIDEO_MEMORY[5 + 0x40] = 'n';
+    VIDEO_MEMORY[6 + 0x40] = 't';
+    VIDEO_MEMORY[7 + 0x40] = 'e';
+    VIDEO_MEMORY[8 + 0x40] = 'r';
+    VIDEO_MEMORY[9 + 0x40] = 'r';
+    VIDEO_MEMORY[10 + 0x40] = 'u';
+    VIDEO_MEMORY[11 + 0x40] = 'p';
+    VIDEO_MEMORY[12 + 0x40] = 't';
+    VIDEO_MEMORY[13 + 0x40] = ':';
+    VIDEO_MEMORY[14 + 0x40] = ' ';
 
     initVideoSetting();
     uint32_t sprite_x = 30;
@@ -54,8 +74,11 @@ int main() {
     while (1) {
         global = getTicks();
         if(global != last_global){
+            VIDEO_MEMORY[17] = '0' + (getVideoInterruptSeq() % 10);
+            
             int cmdSeq = getCmdInterruptSeq();
-            VIDEO_MEMORY[15] = '0' + cmdSeq % 10;
+            VIDEO_MEMORY[15 +  + 0x40] = '0' + cmdSeq % 10;
+            
             setDisplayMode(cmdSeq ^ 1);
             controller_status = getStatus();
             if(controller_status){
