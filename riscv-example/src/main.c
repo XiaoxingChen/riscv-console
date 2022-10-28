@@ -2,8 +2,19 @@
 
 volatile int global = 42;
 volatile uint32_t controller_status = 0;
+volatile uint32_t interrupt_pending = 0;
+volatile int vip_seq = 1;
 
 volatile char *VIDEO_MEMORY = (volatile char *)(0x50000000 + 0xFE800);
+
+void vizInterruptPending()
+{
+    VIDEO_MEMORY[15] = '0' + ((interrupt_pending >> 24) & 0xff);
+    VIDEO_MEMORY[16] = '0' + ((interrupt_pending >> 16) & 0xff);
+    VIDEO_MEMORY[17] = '0' + ((interrupt_pending >> 8) & 0xff);
+    VIDEO_MEMORY[18] = '0' + ((interrupt_pending >> 0) & 0xff);
+}
+
 int main() {
     int a = 4;
     int b = 12;
@@ -28,6 +39,8 @@ int main() {
     while (1) {
         int c = a + b + global;
         if(global != last_global){
+            VIDEO_MEMORY[15] = '0' + (vip_seq % 10);
+            // vizInterruptPending();
             if(controller_status){
                 VIDEO_MEMORY[x_pos] = ' ';
                 if(controller_status & 0x1){
