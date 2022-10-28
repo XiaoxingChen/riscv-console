@@ -84,7 +84,7 @@ void c_interrupt_handler(uint32_t mcause) {
     if(flag){
         increase_timer();
     }
-    increase_timer();
+    // increase_timer();
 
     if((INTRPT_PENDING & 0x2) > 0)
     {
