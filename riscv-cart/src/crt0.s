@@ -16,7 +16,7 @@ _start:
     
 
 .section .text, "ax"
-.global getTicks, getStatus, getVideoInterruptSeq, hookFunction
+.global getTicks, getStatus, getVideoInterruptSeq, hookFunction, getCmdInterruptSeq
 getTicks:
     li a5, 0
     ecall
@@ -25,7 +25,7 @@ getStatus:
     ecall
 getVideoInterruptSeq:
     li a5, 2
-    ecall
+    ecall  
 ; writeTargetMem:
 ;     li a5, 6
 ;     ecall
@@ -35,4 +35,7 @@ getVideoInterruptSeq:
 hookFunction:
     li a5, 8
     ecall
+getCmdInterruptSeq:
+    li a5, 9
+    ecall  
 .end

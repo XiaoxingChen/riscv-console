@@ -17,6 +17,7 @@ volatile char *LARGE_SPRITE_IMG_2 = (volatile char *)(0x50000000 + 0xB4000 + 2 *
 
 typedef void (*FunPtr)(void);
 volatile int vip_seq = 1;
+volatile int cmd_seq = 0;
 int main() {
     memcpy((void*)BACKGROUND_IMG_0, bird_background_img, 288*512);
     memcpy((void*)LARGE_SPRITE_IMG_0, bird_img_0, 64*64);
