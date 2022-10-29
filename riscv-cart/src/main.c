@@ -1,4 +1,5 @@
 #include <stdint.h>
+#include <string.h>
 #include "video_api.h"
 
 volatile int global = 42;
@@ -48,39 +49,12 @@ int main() {
     writeTargetMem = (FuncWriteTargetMem)hookFunction(1);
     writeTarget = (FuncWriteTarget)hookFunction(2);
 
-    VIDEO_MEMORY[0] = 'V';
-    VIDEO_MEMORY[1] = 'i';
-    VIDEO_MEMORY[2] = 'd';
-    VIDEO_MEMORY[3] = 'e';
-    VIDEO_MEMORY[4] = 'o';
-    VIDEO_MEMORY[5] = ' ';
-    VIDEO_MEMORY[6] = 'i';
-    VIDEO_MEMORY[7] = 'n';
-    VIDEO_MEMORY[8] = 't';
-    VIDEO_MEMORY[9] = 'e';
-    VIDEO_MEMORY[10] = 'r';
-    VIDEO_MEMORY[11] = 'r';
-    VIDEO_MEMORY[12] = 'u';
-    VIDEO_MEMORY[13] = 'p';
-    VIDEO_MEMORY[14] = 't';
-    VIDEO_MEMORY[15] = ':';
-    VIDEO_MEMORY[16] = ' ';
-
-    VIDEO_MEMORY[0 + 0x40] = 'C';
-    VIDEO_MEMORY[1 + 0x40] = 'M';
-    VIDEO_MEMORY[2 + 0x40] = 'D';
-    VIDEO_MEMORY[3 + 0x40] = ' ';
-    VIDEO_MEMORY[4 + 0x40] = 'i';
-    VIDEO_MEMORY[5 + 0x40] = 'n';
-    VIDEO_MEMORY[6 + 0x40] = 't';
-    VIDEO_MEMORY[7 + 0x40] = 'e';
-    VIDEO_MEMORY[8 + 0x40] = 'r';
-    VIDEO_MEMORY[9 + 0x40] = 'r';
-    VIDEO_MEMORY[10 + 0x40] = 'u';
-    VIDEO_MEMORY[11 + 0x40] = 'p';
-    VIDEO_MEMORY[12 + 0x40] = 't';
-    VIDEO_MEMORY[13 + 0x40] = ':';
-    VIDEO_MEMORY[14 + 0x40] = ' ';
+    char video_cnt_str[]= "video interrupt:";
+    char cmd_cnt_str[]= "CMD interrupt:";
+    char timer_cnt_str[]= "timer interrupt:";
+    memcpy((void*)&VIDEO_MEMORY[0x40*0], video_cnt_str, sizeof(video_cnt_str));
+    memcpy((void*)&VIDEO_MEMORY[0x40*1], cmd_cnt_str, sizeof(cmd_cnt_str));
+    memcpy((void*)&VIDEO_MEMORY[0x40*2], timer_cnt_str, sizeof(timer_cnt_str));
 
     initVideoSetting();
     uint32_t sprite_x = 30;

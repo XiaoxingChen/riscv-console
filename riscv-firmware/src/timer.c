@@ -45,7 +45,7 @@ int size_linkedList() {
     }
     return result;
 }
-
+int call_back_cnt = 0;
 void handle_timer() {
     SLTNode *curr = node->next;
     int flagCounterZ = 0;
@@ -54,6 +54,7 @@ void handle_timer() {
         curr = curr->next;
         flagCounterZ++;
     }
+    VIDEO_MEMORY[0x40 * 2 + 17] = '0' + (++call_back_cnt) % 10;
 }
 
 int register_handler(uint32_t addressInt) {
