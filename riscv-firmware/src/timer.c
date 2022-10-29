@@ -3,6 +3,7 @@
 //
 #include <stdlib.h>
 #include <stddef.h>
+#include "nanoprintf.h"
 #include "include/timer.h"
 #include "include/SList.h"
 
@@ -51,6 +52,7 @@ void handle_timer() {
     int flagCounterZ = 0;
     while (curr != NULL) {
         (curr->data)(0);
+        npf_snprintf((char*)&VIDEO_MEMORY[0x40 * (flagCounterZ + 4)], 0x40, "0x%X", (uint32_t)curr->data);
         curr = curr->next;
         flagCounterZ++;
     }

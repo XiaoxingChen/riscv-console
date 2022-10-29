@@ -38,6 +38,7 @@ TARGET_OBJS =   $(OBJ_DIR)/main.o               \
                 $(OBJ_DIR)/interrupt.o          \
                 $(OBJ_DIR)/SList.o				\
                 $(OBJ_DIR)/timer.o				\
+				$(OBJ_DIR)/printf.o				\
 				$(OBJ_DIR)/system_calls.o          \
                 $(OBJ_DIR)/startup.o
 
