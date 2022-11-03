@@ -51,12 +51,12 @@ void handle_timer() {
     SLTNode *curr = node->next;
     int flagCounterZ = 0;
     while (curr != NULL) {
-        (curr->data)(0);
-        npf_snprintf((char*)&VIDEO_MEMORY[0x40 * (flagCounterZ + 4)], 0x40, "0x%X", (uint32_t)curr->data);
+        (curr->data)(call_back_cnt++);
+        // npf_snprintf((char*)&VIDEO_MEMORY[0x40 * (flagCounterZ + 4)], 0x40, "0x%X", (uint32_t)curr->data);
         curr = curr->next;
         flagCounterZ++;
     }
-    VIDEO_MEMORY[0x40 * 2 + 17] = '0' + (++call_back_cnt) % 10;
+    // VIDEO_MEMORY[0x40 * 2 + 17] = '0' + (++call_back_cnt) % 10;
 }
 
 int register_handler(uint32_t addressInt) {

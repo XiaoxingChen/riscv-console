@@ -4,7 +4,6 @@
 
 volatile int global = 42;
 volatile uint32_t controller_status = 0;
-volatile int myCounter =1;
 uint32_t getTicks(void);
 
 uint32_t getStatus(void);
@@ -114,16 +113,15 @@ int main() {
 
 
 uint32_t myHandler(uint32_t code) {
-    if(myCounter<=100){
-        VIDEO_MEMORY[myCounter] = 'x';
-        myCounter++;
-    }
+    // TODO: fix upcall with global_pointer
+    char* VIDEO_MEMORY_LOCAL = (char *)(0x50000000 + 0xFE800);
+    VIDEO_MEMORY_LOCAL[0x40 * 2 + 17] = '0' + code % 10;
     return 0;
 }
 
 uint32_t myHandler2(uint32_t code) {
-    if(myCounter<=100){
-        VIDEO_MEMORY[myCounter+100] = 'p';
-    }
+    // TODO: fix upcall with global_pointer
+    char* VIDEO_MEMORY_LOCAL = (char *)(0x50000000 + 0xFE800);
+    VIDEO_MEMORY_LOCAL[0x40 * 2 + 18] = '0' + code % 10;
     return 0;
 }
