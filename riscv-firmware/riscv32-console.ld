@@ -16,6 +16,10 @@ MEMORY
     RAM (rwx)   : ORIGIN = 0x70000000, LENGTH = 8M
     
 }
+
+STACK_SIZE          = 4M;
+HEAP_SIZE          = 2M;
+
 ENTRY(_start)
 SEARCH_DIR("/opt/riscv32/riscv32-unknown-elf/lib");
 SECTIONS
@@ -30,7 +34,7 @@ SECTIONS
         i.e ORIGIN(RAM) + LENGTH(RAM)-1 until it comes in contact with .bss or .data 
         in which case a buffer overflow occurs
     */
-    PROVIDE( __stack_top = ORIGIN(RAM) + LENGTH(RAM));
+    /* PROVIDE( __stack_top = ORIGIN(RAM) + LENGTH(RAM)); */
 
     /* constants  and other code stored in FLASH */
     .text :
@@ -78,6 +82,22 @@ SECTIONS
         *(COMMON)       
         . = ALIGN(. != 0 ? 32 / 8 : 1);
         _ebss = .;          /* end of .bss segment */
+    } > RAM
+
+    .heap :
+    {
+        __heap_start = .;
+        . += HEAP_SIZE;
+        __heap_end = .;
+        _heap_end = __heap_end;
+        end = __heap_start;
+    } > RAM
+
+    .stack :
+    {
+        __stack_bottom = .;
+        . += STACK_SIZE;
+        __stack_top = .;
     } > RAM
 
     __global_pointer$ = MIN(_sdata + 0x800,

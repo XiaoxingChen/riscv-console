@@ -27,7 +27,7 @@ endif
 LDFILE   = riscv32-console.ld
 INCLUDE  += -I $(INC_DIR)
 CFLAGS   += -ffreestanding  -nostartfiles -nostdlib -nodefaultlibs
-LDFLAGS  += -lc
+LDFLAGS  += -lc -lnosys
 LDFLAGS  += -Wl,--gc-sections -Wl,-T,$(LDFILE)
 
 TARGET_NAME = riscv-console-firmware
@@ -36,6 +36,9 @@ TARGET_OBJS =   $(OBJ_DIR)/main.o               \
                 $(OBJ_DIR)/crt0.o               \
 				$(OBJ_DIR)/img_data.o               \
                 $(OBJ_DIR)/interrupt.o          \
+                $(OBJ_DIR)/SList.o				\
+                $(OBJ_DIR)/timer.o				\
+				$(OBJ_DIR)/printf.o				\
 				$(OBJ_DIR)/system_calls.o          \
                 $(OBJ_DIR)/startup.o
 
